@@ -1,0 +1,19 @@
+<html>
+<body>
+Supports execution of actions / use cases etc as Runnable actions.
+<p>
+In this GUI framework application all actions such as menu selections 
+and button presses are handled by kicking off a Runnable action.
+These actions can be run in-line, or spawned as separate threads or even 
+assigned to be executed as part of the AWT thread.
+<p>
+All classes that provide use-cases etc should be registered with the
+TaskManager (static class). The TaskManager provided mechanisms
+to look up and envoke the registered actions and use case.
+<p>
+In general, to add one or more use-cases the user needs to create a simple class
+with methods for each use case. The methods should be void and not take any
+parameters. The methods should be annotated with MetaTask items.
+
+</body>
+</html>

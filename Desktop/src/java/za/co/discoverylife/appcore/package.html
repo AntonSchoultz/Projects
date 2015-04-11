@@ -1,0 +1,65 @@
+<html>
+<body>
+Provides framework for GUI applications 
+
+<a href="../package.html" title="Back to Top">Top</a>
+
+<h3>Major Packages</h3>
+<table width="100%" border="1" cellpadding="3" cellspacing="0">
+<tr bgcolor="#ccccff" class="TableHeadingColor"><th align="left" colspan="2"><b>Major Packages</b>
+<tr><th align="left" width="15%">Package(s)</th><th align="left">Description</th></tr>
+<tr><td>appcore.field </td><td>This package uses reflection to provide access to fields within data objects.</td></tr>
+<tr><td>appcore.gui </td><td>This package provides the GUI components and the bulk of the GUI framework.</td></tr>
+<tr><td>appcore.host </td><td>Interfaces and objects to hold credentials for host machines/services.</td></tr>
+<tr><td>appcore.html </td><td>This package provides some classes to produce HTML reports with.</td></tr>
+<tr><td>appcore.logging </td><td>Provides logging and routing of logging messages functions.</td></tr>
+<tr><td>appcore.plugin </td><td>Provides the plug-in mechanisms and support.</td></tr>
+<tr><td>appcore.shell </td><td>Provides functionality to shell to system (run binaries or spawn JVMs)</td></tr>
+<tr><td>appcore.table </td><td>Functions for creating/converting tables and CSV files. (used for reporting tables)</td></tr>
+<tr><td>appcore.task </td><td>Task thread functionality (TaskManager etc) can run in-line, spawned, queued, in AWt thread etc.</td></tr>
+<tr><td>appcore.util </td><td>Various support functionalities for conversion, file read/write, colour etc.</td></tr>
+<tr><td>appcore.xml </td><td>Provides a simple XML parser, xml document capability (uses field pkg to access data)</td></tr>
+</table>
+<p>
+
+<h3>Overview</h3>
+<dl>
+	<dt>Use Cases
+		<dd>Use cases are implemented in POJO classes, usualy as void methods with no parameters.
+		<br>These methods are marked with a <i>MetaTask</i> annotation which indicates icons, tool tips etc.
+		<br>The class is then 'registered' with the TaskManager.
+		<br>Use cases can then be executed via the TaskManager using an 'action-key' of the 
+		form <i>SimpleClassName@methodName</i>
+		<br>Menues and buttons can be created and added to a display simply by refering to the action-key. 
+		<br>TaskManager can enable/disable tasks (use-cases). 
+		<br>Buttons will be enabled/disabled in line with the TaskManager enable/disable.
+		<br>The actions can be executed in-line or as separate threads / delayed / AWT thread etc. 
+	
+	<dt>Icons
+		<dd><i>GuiIconManager</i> provides the functionality to retrieve Icons by name,
+		but also allows for compositing/overlaying of icons.
+		<br>The Icon set typically comprises of main icons (eg Document, Script ...) 
+		<br>and 'modifier' icons (+ for add, - for remove, etc) which can be overlayed. 
+		<br>The MetaTask annotation can refer to an icon with a text expression.
+		<br>eg: 'document+remove' will create a new icon starting with document.png
+		and then overlaying any non-transparent areas from remove.png.
+		<br>The resulting icon is then cached against it's reference 'document+remove'.
+		<br>User application can also get an icon from the manager by specifying a key/text-expression.
+		
+		<dt>Data Access
+		<dd>Data objects are also implemented as POJO classes.
+		<i>MetaFieldInfo</i> annotations are use to provide additional information about the data fields.
+		<br>Default screens for editing these objects (or fields) can be auto-generated.
+		<br><i>GuiConfigScreen</i> can create an edit screen for any simple data object.
+	
+	
+	<dt>xml
+		<dd>Provides simplified XML support to parse, create and query xml structures.
+		
+		<dt>util
+		<dd>Various utilities, including functionality to persist and reload data objects 
+		as xml documents. (makes use of xml package)
+</dl>
+
+</body>
+</html>
