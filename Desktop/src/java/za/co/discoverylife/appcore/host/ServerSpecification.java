@@ -6,7 +6,6 @@ import java.util.Properties;
 import za.co.discoverylife.appcore.field.MetaFieldInfo;
 import za.co.discoverylife.appcore.field.ValueObject;
 import za.co.discoverylife.appcore.gui.GuiField;
-import za.co.discoverylife.appcore.util.PropertyUtil;
 
 /**
  * Holds details for a server connection.
@@ -44,14 +43,14 @@ public class ServerSpecification
     user = System.getProperty("user.name");
   }
 
-  /**
-   * CONSTRUCT default specification for connection to starteam server
-   */
-  public ServerSpecification(Properties props, String prefix)
-  {
-    this();
-    PropertyUtil.setObjectFromProperties(this, props, prefix);
-  }
+//  /**
+//   * CONSTRUCT default specification for connection to starteam server
+//   */
+//  public ServerSpecification(Properties props, String prefix)
+//  {
+//    this();
+//    PropertyHelper.setObjectFromProperties(this, props, prefix);
+//  }
 
   /**
    * CONSTRUCT starteam connection specification with provided details

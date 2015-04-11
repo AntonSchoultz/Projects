@@ -12,7 +12,7 @@ import java.util.Vector;
 import za.co.discoverylife.appcore.field.FieldAccessException;
 import za.co.discoverylife.appcore.field.FieldAccessor;
 import za.co.discoverylife.appcore.field.ValueObject;
-import za.co.discoverylife.appcore.util.DateTime;
+import za.co.discoverylife.desktop.util.DateTime;
 
 /**
  * Represents a table of data rows
@@ -214,7 +214,7 @@ public class DataTable extends ValueObject
           long tick = Long.parseLong(fieldString);
           DateTime dtm = new DateTime();
           dtm.setTimeInMillis(tick);
-          fieldString = dtm.toStringYmdHms();
+          fieldString = dtm.toYmdHms();
           isnumeric = false;
           if ( rows.size() == 0 )
           {

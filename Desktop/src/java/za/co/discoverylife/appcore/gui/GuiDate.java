@@ -6,7 +6,7 @@ import za.co.discoverylife.appcore.field.MetaFieldInfo;
 import za.co.discoverylife.appcore.gui.buttons.GuiButton;
 import za.co.discoverylife.appcore.task.MetaTask;
 import za.co.discoverylife.appcore.task.TaskManager;
-import za.co.discoverylife.appcore.util.DateTime;
+import za.co.discoverylife.desktop.util.DateTime;
 
 /**
  * A GUI component to display and edit a java.util.Date field.
@@ -48,7 +48,7 @@ public class GuiDate extends GuiRow
   /** Returns string form of the date as yyyy/mm/dd */
   public String toString()
   {
-    return dtm.toStringYmd();
+    return dtm.toYmd();
   }
 
   public void setToDate(Date date)
@@ -73,7 +73,7 @@ public class GuiDate extends GuiRow
   @Override
   public void undo()
   {
-    dateString = dtm.toStringYmd();
+    dateString = dtm.toYmd();
     super.undo();
   }
 

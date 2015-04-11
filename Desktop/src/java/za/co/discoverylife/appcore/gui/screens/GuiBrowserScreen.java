@@ -27,8 +27,8 @@ import za.co.discoverylife.appcore.gui.buttons.GuiButtonPanel;
 import za.co.discoverylife.appcore.task.LinkTask;
 import za.co.discoverylife.appcore.task.MetaTask;
 import za.co.discoverylife.appcore.task.TaskManager;
-import za.co.discoverylife.appcore.util.Convert;
-import za.co.discoverylife.appcore.util.FileUtil;
+import za.co.discoverylife.desktop.util.FileHelper;
+import za.co.discoverylife.desktop.util.PixelColor;
 
 /**
  * Provides a simple HTML browser.
@@ -72,7 +72,7 @@ public class GuiBrowserScreen extends GuiScreen implements HyperlinkListener//, 
     String name = fin.getName();
     //setToolTipText(fin.getAbsolutePath());
     log.debug("Reading file " + fin.getAbsolutePath());
-    String txt = FileUtil.fileRead(fin);
+    String txt = FileHelper.fileRead(fin);
     log.debug("File size=" + txt.length());
     setTextBody(txt, isHtml(name));
     setName(heading);
@@ -131,7 +131,7 @@ public class GuiBrowserScreen extends GuiScreen implements HyperlinkListener//, 
       doc.putProperty(PlainDocument.tabSizeAttribute, new Integer(4));
     }
     newRow(4);
-    editorPane.setBackground(Convert.hexToColor("ffffdd"));
+    editorPane.setBackground(PixelColor.hexToColor("ffffdd"));
     editorPane.setPreferredSize(dim);
     editorPane.setCaretPosition(0);// scroll to top
     scrollPane = new JScrollPane(editorPane);

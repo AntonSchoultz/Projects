@@ -13,7 +13,8 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
-import za.co.discoverylife.appcore.util.DateTime;
+import za.co.discoverylife.desktop.util.DateTime;
+
 
 /**
  * Provides access to fields within objects , via an editable string value.

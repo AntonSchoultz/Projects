@@ -18,7 +18,7 @@ import za.co.discoverylife.appcore.gui.GuiScreen;
 import za.co.discoverylife.appcore.gui.buttons.GuiButtonPanel;
 import za.co.discoverylife.appcore.task.MetaTask;
 import za.co.discoverylife.appcore.task.TaskManager;
-import za.co.discoverylife.appcore.util.FileUtil;
+import za.co.discoverylife.desktop.util.FileHelper;
 
 /**
  * Provides a simple editor for text based files,
@@ -95,7 +95,7 @@ public class GuiEditScreen extends GuiScreen implements ISaveable
       }
       // setToolTipText(fin.getAbsolutePath());
       log.debug("Reading file " + fin.getAbsolutePath());
-      String txt = FileUtil.fileRead(fin);
+      String txt = FileHelper.fileRead(fin);
       if ( useToolBar )
       {
         toolBar();
@@ -117,7 +117,7 @@ public class GuiEditScreen extends GuiScreen implements ISaveable
     {
       String txt = editorPane.getText();
       log.report("Saving File " + fEdit.getAbsolutePath());
-      FileUtil.fileWrite(txt, fEdit);
+      FileHelper.fileWrite(txt, fEdit);
     }
   }
 
@@ -130,7 +130,7 @@ public class GuiEditScreen extends GuiScreen implements ISaveable
   @MetaTask(seqId = 51, label = "Reload", hint = "Reload from file", icon = "script+#refresh")
   public void reload()
   {
-    String txt = FileUtil.fileRead(fEdit);
+    String txt = FileHelper.fileRead(fEdit);
     editorPane.setText(txt);
     goToTop();
     log.report("Re-loaded File " + fEdit.getAbsolutePath());
@@ -152,7 +152,7 @@ public class GuiEditScreen extends GuiScreen implements ISaveable
   public void load(File fin)
   {
     fEdit = fin;
-    String txt = FileUtil.fileRead(fEdit);
+    String txt = FileHelper.fileRead(fEdit);
     editorPane.setText(txt);
     goToTop();
     log.debug("Loaded File " + fEdit.getAbsolutePath());

@@ -4,7 +4,7 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 import za.co.discoverylife.appcore.progress.IProgressListener;
-import za.co.discoverylife.appcore.util.Convert;
+import za.co.discoverylife.desktop.util.DateTime;
 
 /**
  * Provides Abort capability and timer for tasks.
@@ -177,7 +177,7 @@ public class TaskState implements IStateConstants, IProgressListener
 
   public String duration()
   {
-    return " in " + Convert.mSecToHMS(getTimer());
+    return " in " + DateTime.elapsedAsHMS(getTimer());
   }
 
   /** Returns the timer value in Seconds */

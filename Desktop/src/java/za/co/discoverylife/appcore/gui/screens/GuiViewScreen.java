@@ -22,8 +22,8 @@ import za.co.discoverylife.appcore.gui.GuiScreen;
 import za.co.discoverylife.appcore.task.LinkTask;
 import za.co.discoverylife.appcore.task.MetaTask;
 import za.co.discoverylife.appcore.task.TaskManager;
-import za.co.discoverylife.appcore.util.Convert;
-import za.co.discoverylife.appcore.util.FileUtil;
+import za.co.discoverylife.desktop.util.FileHelper;
+import za.co.discoverylife.desktop.util.PixelColor;
 
 /**
  * Provides a simple view of a text or html file.
@@ -56,7 +56,7 @@ public class GuiViewScreen extends GuiScreen implements HyperlinkListener
     String name = fin.getName();
     setToolTipText(fin.getAbsolutePath());
     log.debug("Reading file " + fin.getAbsolutePath());
-    txt = FileUtil.fileRead(fin);
+    txt = FileHelper.fileRead(fin);
     log.debug("File size=" + txt.length());
     setTextBody(txt, isHtml(name));
     setName(heading);
@@ -92,7 +92,7 @@ public class GuiViewScreen extends GuiScreen implements HyperlinkListener
   {
     super(heading, resourceSpec);
     setToolTipText(resourceSpec);
-    String txt = FileUtil.resourceRead(resourceSpec);
+    String txt = FileHelper.resourceRead(resourceSpec);
     setTextBody(txt, isHtml(resourceSpec));
     setName(heading);
     loadResourcePage(resourceSpec);
@@ -109,7 +109,7 @@ public class GuiViewScreen extends GuiScreen implements HyperlinkListener
   {
     if ( fEdit != null )
     {
-      txt = FileUtil.fileRead(fEdit);
+      txt = FileHelper.fileRead(fEdit);
       log.report("Re-loaded File " + fEdit.getAbsolutePath());
     }
     editorPane.setText(txt);
@@ -151,7 +151,7 @@ public class GuiViewScreen extends GuiScreen implements HyperlinkListener
     {
       doc.putProperty(PlainDocument.tabSizeAttribute, new Integer(4));
     }
-    editorPane.setBackground(Convert.hexToColor("ffffdd"));
+    editorPane.setBackground(PixelColor.hexToColor("ffffdd"));
     //editorPane.setCaretPosition(pos);// scroll to top
     add(editorPane);
     endPage();

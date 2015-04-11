@@ -2,7 +2,7 @@ package za.co.discoverylife.appcore.html;
 
 import java.io.File;
 
-import za.co.discoverylife.appcore.util.FileUtil;
+import za.co.discoverylife.desktop.util.FileHelper;
 
 /**
  * Wraps an HTML page of tags.
@@ -24,7 +24,7 @@ public class HtmlPage extends HtmlTag implements IStyle
   /** Write the html page to the provided file handle */
   public File writeToFile(File fHtml)
   {
-    FileUtil.fileWrite(toString(), fHtml);
+    FileHelper.fileWrite(toString(), fHtml);
     return fHtml;
   }
 

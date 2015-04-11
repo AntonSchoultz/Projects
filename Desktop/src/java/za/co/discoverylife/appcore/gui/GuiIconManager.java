@@ -12,7 +12,7 @@ import java.util.Map;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
-import za.co.discoverylife.appcore.util.PixelColor;
+import za.co.discoverylife.desktop.util.PixelColor;
 
 /**
  * Handles fetching of named icons, optionally using a cache.

@@ -33,7 +33,8 @@ import javax.swing.Timer;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
-import za.co.discoverylife.appcore.ApplicationBase;
+
+//import za.co.discoverylife.appcore.ApplicationBase;
 import za.co.discoverylife.appcore.DataHolder;
 import za.co.discoverylife.appcore.gui.buttons.GuiButton;
 import za.co.discoverylife.appcore.gui.controller.GuiController;
@@ -42,8 +43,6 @@ import za.co.discoverylife.appcore.gui.screens.GuiStatus;
 import za.co.discoverylife.appcore.gui.screens.GuiViewScreen;
 import za.co.discoverylife.appcore.logging.LogManager;
 import za.co.discoverylife.appcore.logging.Logger;
-import za.co.discoverylife.appcore.plugin.IPlugInConstants;
-import za.co.discoverylife.appcore.plugin.ModuleEntry;
 import za.co.discoverylife.appcore.task.ILinkAction;
 import za.co.discoverylife.appcore.task.LinkTask;
 import za.co.discoverylife.appcore.task.MetaMenu;
@@ -57,7 +56,9 @@ import za.co.discoverylife.appcore.task.TaskManager;
  * @author anton11
  */
 @MetaMenu(label = "_File")
-public abstract class GuiBase extends ApplicationBase implements Runnable, ActionListener // , WindowListener
+public abstract class GuiBase 
+//extends ApplicationBase 
+implements Runnable, ActionListener // , WindowListener
 {
   private static final long serialVersionUID = 4554027857571978297L;
   protected static int RC = 0;
@@ -89,6 +90,10 @@ public abstract class GuiBase extends ApplicationBase implements Runnable, Actio
   protected transient boolean DIR = true;
   protected transient boolean FILE = false;
   protected transient String heading = "";
+private String appName;
+private GuiPanel log;
+private boolean shutdown;
+private File workDir;
 
   /**
    * CONSTRUCT application and restore state
@@ -112,7 +117,7 @@ public abstract class GuiBase extends ApplicationBase implements Runnable, Actio
   protected static void launchGUIApp(GuiBase guiapp)
   {
     guiBase = guiapp;
-    guiBase.log.info("Starting GUI for " + guiBase.appName);
+   // guiBase.log.info("Starting GUI for " + guiBase.appName);
     javax.swing.SwingUtilities.invokeLater(new Runnable()
     {
       public void run()
@@ -134,8 +139,9 @@ public abstract class GuiBase extends ApplicationBase implements Runnable, Actio
   /** Returns version information (from manifest) */
   public String getVersion()
   {
-    String v = getVersion(this);
-    return v == null ? "unkown" : v;
+	  return "Unknown";
+//    String v = getVersion(this);
+//    return v == null ? "unkown" : v;
   }
 
   /**
@@ -460,17 +466,13 @@ public abstract class GuiBase extends ApplicationBase implements Runnable, Actio
   {
     try
     {
-      log.debug("GetScreenSizeAndPosition");
       readScreen();
-      log.debug("Get button style");
       buttonStyle = GuiButton.getButtonStyle();
-      log.debug("Get gui log config (level and rows)");
       if ( guiLogger != null )
       {
         guiLogLevel = guiLogger.getDisplayLogLevel();
         guiLogRows = guiLogger.getDisplayLogRows();
       }
-      log.debug("Done");
     }
     catch (Exception e)
     {
@@ -502,7 +504,7 @@ public abstract class GuiBase extends ApplicationBase implements Runnable, Actio
       guiLogger = new GuiLogger();
       guiLogger.setDisplayLogLevel(guiLogLevel);
       guiLogger.setDisplayLogRows(guiLogRows);
-      taskManager.registerModel(GuiLogger.class);
+     // taskManager.registerModel(GuiLogger.class);
       DataHolder.store(guiLogger);
       guiLogger.update(guiLogLevel);
     }
@@ -583,12 +585,13 @@ public abstract class GuiBase extends ApplicationBase implements Runnable, Actio
    */
   public GuiMenu createMenu(String name, Object model, String hint)
   {
-    createMenuBar();
-    TaskManager.getInstance().registerModel(model.getClass());
-    GuiMenu mnu = new GuiMenu(model, log, name, GuiMenu.TEXT_ONLY, false, hint);
-    mnu.addAllItems(model.getClass());
-    menuBar.add(mnu.getMenu());
-    return mnu;
+//    createMenuBar();
+//    TaskManager.getInstance().registerModel(model.getClass());
+//    GuiMenu mnu = new GuiMenu(model, log, name, GuiMenu.TEXT_ONLY, false, hint);
+//    mnu.addAllItems(model.getClass());
+//    menuBar.add(mnu.getMenu());
+//    return mnu;
+	  return null;
   }
 
   /**
@@ -596,39 +599,39 @@ public abstract class GuiBase extends ApplicationBase implements Runnable, Actio
    */
   public void createPlugInMenues()
   {
-    for (String modelClassName : moduleList.getClassNames(IPlugInConstants.PLUGIN_TOOLS_MENU))
-    {
-      try
-      {
-        Class<?> modelClass = Class.forName(modelClassName);
-        Object model = modelClass.newInstance();
-        MetaMenu mm = model.getClass().getAnnotation(MetaMenu.class);
-        String name = model.getClass().getSimpleName();
-        String hint = model.getClass().getName() + " does not have a hint!";
-        if ( mm != null )
-        {
-          name = mm.label();
-          hint = mm.hint();
-        }
-        TaskManager.getInstance().registerModel(model.getClass());
-        GuiMenu mnu = new GuiMenu(model, log, name, GuiMenu.TEXT_ONLY, false, hint);
-        mnu.addAllItems(model.getClass());
-        if ( toolsMenu == null )
-        {
-          toolsMenu = new JMenu("Tools");
-          toolsMenu.setToolTipText("Plug in tools");
-          toolsMenu.setMnemonic('T');
-          menuBar.add(toolsMenu);
-        }
-        toolsMenu.add(mnu.menu);
-        System.out.println("PlugIn:Added menu " + mnu.getMenu().getName());
-      }
-      catch (Exception e)
-      {
-        System.err.println("Error adding TOOLS_MENU :" + modelClassName);
-        e.printStackTrace();
-      }
-    }
+//    for (String modelClassName : moduleList.getClassNames(IPlugInConstants.PLUGIN_TOOLS_MENU))
+//    {
+//      try
+//      {
+//        Class<?> modelClass = Class.forName(modelClassName);
+//        Object model = modelClass.newInstance();
+//        MetaMenu mm = model.getClass().getAnnotation(MetaMenu.class);
+//        String name = model.getClass().getSimpleName();
+//        String hint = model.getClass().getName() + " does not have a hint!";
+//        if ( mm != null )
+//        {
+//          name = mm.label();
+//          hint = mm.hint();
+//        }
+//        TaskManager.getInstance().registerModel(model.getClass());
+//        GuiMenu mnu = new GuiMenu(model, log, name, GuiMenu.TEXT_ONLY, false, hint);
+//        mnu.addAllItems(model.getClass());
+//        if ( toolsMenu == null )
+//        {
+//          toolsMenu = new JMenu("Tools");
+//          toolsMenu.setToolTipText("Plug in tools");
+//          toolsMenu.setMnemonic('T');
+//          menuBar.add(toolsMenu);
+//        }
+//        toolsMenu.add(mnu.menu);
+//        System.out.println("PlugIn:Added menu " + mnu.getMenu().getName());
+//      }
+//      catch (Exception e)
+//      {
+//        System.err.println("Error adding TOOLS_MENU :" + modelClassName);
+//        e.printStackTrace();
+//      }
+//    }
   }
 
   @SuppressWarnings("unchecked")
@@ -637,18 +640,18 @@ public abstract class GuiBase extends ApplicationBase implements Runnable, Actio
    */
   public void addPlugInLinkActions()
   {
-    for (String classname : moduleList.getClassNames(IPlugInConstants.PLUGIN_LINK_ACTION))
-    {
-      try
-      {
-        Class<? extends ILinkAction> linkClass = (Class<? extends ILinkAction>) Class.forName(classname);
-        LinkTask.registerLinkAction(linkClass);
-      }
-      catch (ClassNotFoundException e)
-      {
-        log.error("Problem linking action for " + classname, e);
-      }
-    }
+//    for (String classname : moduleList.getClassNames(IPlugInConstants.PLUGIN_LINK_ACTION))
+//    {
+//      try
+//      {
+//        Class<? extends ILinkAction> linkClass = (Class<? extends ILinkAction>) Class.forName(classname);
+//        LinkTask.registerLinkAction(linkClass);
+//      }
+//      catch (ClassNotFoundException e)
+//      {
+//        log.error("Problem linking action for " + classname, e);
+//      }
+//    }
   }
 
 //  /** Adds a sub-menu for plugin help where required */
@@ -731,12 +734,11 @@ public abstract class GuiBase extends ApplicationBase implements Runnable, Actio
     }
   }
 
-  @Override
   protected void shutdown()
   {
     stopAutoUpdate();
     removeGuiLogger();
-    super.shutdown();
+    //super.shutdown();
   }
 
   /**
