@@ -14,6 +14,7 @@ import za.co.discoverylife.appcore.field.FieldAccessor;
 import za.co.discoverylife.appcore.field.IFieldTypes;
 import za.co.discoverylife.appcore.xml.XTag;
 import za.co.discoverylife.appcore.xml.XTagParser;
+import za.co.discoverylife.desktop.util.FileHelper;
 
 /**
  * XML utilities for converting between Object and XML.
@@ -67,7 +68,7 @@ public class XmlUtil
   public void storeObject(Object obj, File fp)
   {
     XTag doc = encode(obj);
-    FileUtil.fileWrite(doc.toString(), fp);
+    FileHelper.fileWrite(doc.toString(), fp);
   }
 
   /**
