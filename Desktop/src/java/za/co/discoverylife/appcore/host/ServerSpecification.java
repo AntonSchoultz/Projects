@@ -6,6 +6,9 @@ import java.util.Properties;
 import za.co.discoverylife.appcore.field.MetaFieldInfo;
 import za.co.discoverylife.appcore.field.ValueObject;
 import za.co.discoverylife.appcore.gui.GuiField;
+import za.co.discoverylife.desktop.host.ICredentials;
+import za.co.discoverylife.desktop.host.IServer;
+import za.co.discoverylife.desktop.host.IServerConnection;
 
 /**
  * Holds details for a server connection.

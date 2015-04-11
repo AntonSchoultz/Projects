@@ -1,4 +1,4 @@
-package za.co.discoverylife.appcore.host;
+package za.co.discoverylife.desktop.host;
 
 /** 
  *  Holds all details for a connection to a host.<ul>

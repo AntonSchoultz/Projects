@@ -1,5 +1,8 @@
 package za.co.discoverylife.appcore.host;
 
+import za.co.discoverylife.desktop.host.ICredentials;
+import za.co.discoverylife.desktop.host.IServer;
+
 /**
  * Defines functions which allow a client to connect to a server<ul>
  * <li>setServer(IServer host)

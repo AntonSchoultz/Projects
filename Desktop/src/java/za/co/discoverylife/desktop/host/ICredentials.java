@@ -1,4 +1,4 @@
-package za.co.discoverylife.appcore.host;
+package za.co.discoverylife.desktop.host;
 
 /** Holds credentials for a host connection<ul>
  *  <li>getUser() - returns user log in name

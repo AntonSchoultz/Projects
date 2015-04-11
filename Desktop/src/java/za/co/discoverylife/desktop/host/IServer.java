@@ -1,4 +1,4 @@
-package za.co.discoverylife.appcore.host;
+package za.co.discoverylife.desktop.host;
 
 /** 
  * Holds server URL and port for a connection<ul>
