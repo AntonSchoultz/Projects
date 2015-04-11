@@ -2,6 +2,13 @@ package za.co.discoverylife.desktop.util;
 
 import java.util.LinkedHashMap;
 
+/**
+ * Provides a Most recently used hash map
+ * @author Anton Schoultz
+ *
+ * @param <K> Key type
+ * @param <V> Value type
+ */
 public class MRUHashMap<K, V> extends LinkedHashMap<K, V> {
 	private static final long serialVersionUID = 7744762809556592885L;
 	private int maxEntries = 100;

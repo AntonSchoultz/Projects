@@ -1,7 +1,6 @@
 package test.za.co.discoverylife.desktop.util;
 
 import test.BaseTestCase;
-import za.co.discoverylife.desktop.util.Encryption;
 import za.co.discoverylife.desktop.util.MRUHashMap;
 
 
