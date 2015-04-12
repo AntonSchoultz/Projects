@@ -4,7 +4,6 @@ import java.io.File;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 //import java.util.Collection;
-
 import java.util.Date;
 
 import za.co.discoverylife.desktop.util.DateTime;
@@ -24,18 +23,25 @@ public class FieldHelper implements IFieldTypes {
 		return (fieldTypeCd > 0) && (fieldTypeCd < TYPE_COLLECTION);
 	}
 
-	/** get field value as a String */
-	public String getStringFromField(Object object) {
+	/** get a simple field value as a String */
+	public String getFieldAsString(Object object) {
 		try {
-			if (fieldTypeCd == TYPE_DATE) {
-				DateTime dtm = new DateTime((Date) field.get(object));
-				return dtm.toString();
+			switch (fieldTypeCd) {
+				case TYPE_DATE:
+					DateTime dtm = new DateTime((Date) field.get(object));
+					return dtm.toString();
+				case TYPE_FILE:
+					return ((File) field.get(object)).getAbsolutePath();
+				case TYPE_COLLECTION:
+					// TODO find a way to convert a collection into a string
+					break;
+				default:
+					return String.valueOf(field.get(object));
 			}
-			return String.valueOf(field.get(object));
 		} catch (Exception e) {
 			e.printStackTrace();
-			return null;
 		}
+		return null;
 	}
 
 	/**
@@ -74,85 +80,85 @@ public class FieldHelper implements IFieldTypes {
 		int ty = getFieldType(fldClass);
 
 		switch (ty) {
-		// case TYPE_COLLECTION :
-		// String[] sa = value.substring(1, value.length() - 1).split(",");
-		// try
-		// {
-		// Class innerType = Class.forName(getFieldInnerType());
-		// if ( innerType == java.lang.String.class )
-		// {
-		// Collection<String> col = (Collection<String>) getFieldObject();
-		// v = col;
-		// for (String s : sa)
-		// {
-		// s = s.trim();
-		// if ( !col.contains(s) )
-		// {
-		// col.add(s);
-		// }
-		// }
-		// }
-		// }
-		// catch (Exception e1)
-		// {
-		// e1.printStackTrace();
-		// }
-		// break;
-		case TYPE_DATE:
-			DateTime dt = new DateTime(value);
-			v = dt.getAsDate();
-			break;
-		case TYPE_OBJECT:
-		case TYPE_STRING:
-			v = value;
-			break;
-		case TYPE_CHAR:
-			v = (char) Integer.parseInt(value);
-			break;
-		case TYPE_SHORT:
-			v = Short.parseShort(value);
-			break;
-		case TYPE_INT:
-			v = Integer.parseInt(value);
-			break;
-		case TYPE_LONG:
-			v = Long.parseLong(value);
-			break;
-		case TYPE_DOUBLE:
-			v = Double.parseDouble(value);
-			break;
-		case TYPE_FLOAT:
-			v = Float.parseFloat(value);
-			break;
-		case TYPE_BOOLEAN:
-			v = Boolean.parseBoolean(value);
-			break;
-		case TYPE_FILE:
-			v = new File(value);
-			break;
-		}
-		if (v == null) {
-			// type not known - try constructor which takes a string value
-			try {
-				Constructor<? extends Object> constr = fldClass
-						.getConstructor(String.class);
-				v = constr.newInstance(value);
-			} catch (Exception e) {
-				// e.printStackTrace();
-			}
+			case TYPE_COLLECTION:
+				// TODO parse string into a collection
+				String[] sa = value.substring(1, value.length() - 1).split(",");
+				// try
+				// {
+				// Class innerType = Class.forName(getFieldInnerType());
+				// if ( innerType == java.lang.String.class )
+				// {
+				// Collection<String> col = (Collection<String>) getFieldObject();
+				// v = col;
+				// for (String s : sa)
+				// {
+				// s = s.trim();
+				// if ( !col.contains(s) )
+				// {
+				// col.add(s);
+				// }
+				// }
+				// }
+				// }
+				// catch (Exception e1)
+				// {
+				// e1.printStackTrace();
+				// }
+				// break;
+			case TYPE_DATE:
+				DateTime dt = new DateTime(value);
+				v = dt.getAsDate();
+				break;
+			case TYPE_OBJECT:
+			case TYPE_STRING:
+				v = value;
+				break;
+			case TYPE_CHAR:
+				v = (char) Integer.parseInt(value);
+				break;
+			case TYPE_SHORT:
+				v = Short.parseShort(value);
+				break;
+			case TYPE_INT:
+				v = Integer.parseInt(value);
+				break;
+			case TYPE_LONG:
+				v = Long.parseLong(value);
+				break;
+			case TYPE_DOUBLE:
+				v = Double.parseDouble(value);
+				break;
+			case TYPE_FLOAT:
+				v = Float.parseFloat(value);
+				break;
+			case TYPE_BOOLEAN:
+				v = Boolean.parseBoolean(value);
+				break;
+			case TYPE_FILE:
+				v = new File(value);
+				break;
+			default:
+				// type not known - try constructor which takes a string value
+				try {
+					Constructor<? extends Object> constr = fldClass
+							.getConstructor(String.class);
+					v = constr.newInstance(value);
+				} catch (Exception e) {
+					// e.printStackTrace();
+				}
 		}
 		return v;
 	}
 
 	/**
-	 * Return the field as an object
+	 * Return the object value for the named field in the source object.
 	 * 
 	 * @return field object
 	 */
-	public Object getFieldAsObject(Object object) {
+	public Object getFieldAsObject(Object sourceObject) {
 		Object o = null;
 		try {
-			o = field.get(object);
+			o = field.get(sourceObject);
 		} catch (IllegalArgumentException e) {
 			e.printStackTrace();
 		} catch (IllegalAccessException e) {
