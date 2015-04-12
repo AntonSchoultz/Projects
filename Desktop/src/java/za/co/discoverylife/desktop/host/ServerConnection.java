@@ -5,6 +5,11 @@ public class ServerConnection implements IServerConnection {
 	private int port;
 	private String user;
 	private String password;
+	
+	public ServerConnection(){
+		url = "localhost";
+		port=80;
+	}
 
 	public ServerConnection(String url, int port, String user, String password) {
 		super();
