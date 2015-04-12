@@ -1,4 +1,4 @@
-package za.co.discoverylife.appcore.field;
+package za.co.discoverylife.desktop.field;
 
 import java.io.File;
 import java.util.Collection;

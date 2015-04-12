@@ -4,19 +4,16 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.HashMap;
 
-import za.co.discoverylife.desktop.host.ServerConnection;
-
-public class AccessHelper {
+public class ObjectHelper {
 	private HashMap<String, FieldHelper> fldMap;
 	
-	public AccessHelper(Class<?> klass){
+	public ObjectHelper(Class<?> klass){
 		this(klass,true);
 	}
 
-	public AccessHelper(Class<?> klass, boolean doParentClass) {
+	public ObjectHelper(Class<?> klass, boolean doParentClass) {
 		fldMap = new HashMap<String, FieldHelper>();
 		Class<?> k = klass;
-		
 		while (k != null) {
 			Field[] flds = k.getDeclaredFields();
 			for (Field f : flds) {
@@ -49,38 +46,4 @@ public class AccessHelper {
 		if(fh==null) throw new Exception("Invalid field name '"+fieldname+"'");
 		fh.getField().set(object,value);
 	}
-
-	public class FieldHelper {
-		private Field field;
-
-		public FieldHelper(Field field) {
-			this.field = field;
-			this.field.setAccessible(true);
-		}
-
-		public Field getField() {
-			return field;
-		}
-
-	}
-
-	
-//	public static void main(String[] args) {
-//		try {
-//			AccessHelper ah = new AccessHelper(ServerConnection.class);
-//			ServerConnection sc = new ServerConnection("localhost", 80, "anton", "password");
-//			ServerConnection sc2 = new ServerConnection("remotehost", 80, "anton", "password");
-//			String url = (String) ah.getFieldObject(sc, "url");
-//			System.out.println("url="+url);
-//			url = (String) ah.getFieldObject(sc2, "url");
-//			System.out.println("url2="+url);
-//			System.out.println(sc);
-//			ah.setFieldObject(sc,"user","another");
-//			System.out.println(sc);
-//			
-//			
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//	}
 }
