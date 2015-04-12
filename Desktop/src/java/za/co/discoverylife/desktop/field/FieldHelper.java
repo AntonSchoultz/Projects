@@ -16,12 +16,12 @@ public class FieldHelper implements IFieldTypes {
 	public FieldHelper(Field field) {
 		this.field = field;
 		this.field.setAccessible(true);
-		fieldTypeCd = getFieldType(field.getClass());
+		fieldTypeCd = getFieldType(field.getType());
 	}
 
 	/** Returns true if the field is a 'simple'/'native' type */
 	public boolean isSimple() {
-		return fieldTypeCd > 0 && fieldTypeCd < TYPE_COLLECTION;
+		return (fieldTypeCd > 0) && (fieldTypeCd < TYPE_COLLECTION);
 	}
 
 	/** get field value as a String */

@@ -12,6 +12,7 @@ import java.util.Date;
 public interface IFieldTypes
 {
   public static final int TYPE_OBJECT = 0;
+
   // the following are considered 'simple'
   public static final int TYPE_STRING = 1;
   public static final int TYPE_CHAR = 2;

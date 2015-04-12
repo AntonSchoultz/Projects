@@ -33,7 +33,8 @@ public interface IFieldTypes
 
   public static Class<?>[] CLASSJ = {
       Object.class, String.class, Character.class, Short.class, Integer.class
-      , Long.class, Double.class, Float.class, Boolean.class, File.class
+      , Long.class, Double.class, Float.class, Boolean.class 
+      , File.class
       , Date.class
       , Collection.class
   };

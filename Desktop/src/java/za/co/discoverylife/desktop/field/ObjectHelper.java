@@ -35,18 +35,26 @@ public class ObjectHelper {
 	/** Copy a clone of source fields into matching fields in the target object */
 	public static void copy(Object source,Object target) throws Exception{
 		ObjectHelper ohSrc = getHelper(source.getClass());
+		System.out.println("got src helper "+ohSrc.toString());
 		ObjectHelper ohTgt = getHelper(target.getClass());
+		System.out.println("got tgt helper "+ohSrc.toString());
 		for(String fieldname:ohSrc.fldMap.keySet()){
+			System.out.println("Copying field "+fieldname);
 			Object value = ohSrc.cloneField(source, fieldname);// get cloned value
+			System.out.println("\tgot object value "+String.valueOf(value));
 			try {
+				System.out.println("\tsetting into target...");
 				ohTgt.setFieldObject(target, fieldname, value);// set into target
 			} catch (Exception e) {
 				// target field not found or incompatible;
+				System.out.println("\t*** Could not set target field "+e.getMessage());
 			}
 		}
+		System.out.println("Done copying");
 	}
 
 	private HashMap<String, FieldHelper> fldMap;
+	private Class<?> klass;
 
 	/**
 	 * CONSTRUCT an Object Helper for the provided class, navigating up the
@@ -69,6 +77,7 @@ public class ObjectHelper {
 	 */
 	private ObjectHelper(Class<?> klass, boolean doParentClass) {
 		fldMap = new HashMap<String, FieldHelper>();
+		this.klass=klass;
 		Class<?> k = klass;
 		while (k != null) {
 			Field[] flds = k.getDeclaredFields();
@@ -108,7 +117,8 @@ public class ObjectHelper {
 			throws Exception {
 		FieldHelper fh = findField(fieldname);
 		if (fh.isSimple()) {
-			return fh.getValueAsObject(fh.getStringFromField(sourceObject));
+			String stringValue = fh.getStringFromField(sourceObject);
+			return fh.getValueAsObject(stringValue);
 		}
 		return null;
 	}
@@ -161,8 +171,16 @@ public class ObjectHelper {
 	 *             If the field name is not found
 	 */
 	private FieldHelper findField(String fieldname) throws Exception {
-		FieldHelper fh = findField(fieldname);
+		FieldHelper fh = fldMap.get(fieldname);
+		if(fh==null){
+			throw new Exception("Field '"+fieldname+"' not found in "+klass.getName());
+		}
 		return fh;
+	}
+
+	@Override
+	public String toString() {
+		return "ObjectHelper [class=" + klass.getName() + "]";
 	}
 
 }
